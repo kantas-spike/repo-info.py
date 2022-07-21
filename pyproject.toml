@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "28_repo-info.py"
+version = "0.1.0"
+description = "GitHub Rest API してリポジトリの情をする"
+authors = ["kanta <101532773+kantas-spike@users.noreply.github.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.28.1"
+toml = "^0.10.2"
+
+[tool.poetry.dev-dependencies]
+black = "^22.6.0"
+flake8 = "^4.0.1"
+taskipy = "^1.10.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.taskipy.tasks]
+format = "black *.py"
+lint = "flake8 --extend-ignore=E203 --max-line-length=119"
+
+[tool.black]
+line-length = 119
+
+[repo-info]
+token_file = "access_token.toml"
+api_interval = 5.0
+
+[[repo-info.targets]]
+name = "mytools"
+repos = ["odp2jpg.sh", "vv_wav2slide_wav.py", "slide2video.py"]
+
+[[repo-info.targets]]
+name = "IHC"
+repos = ["Pong-Game-with-Pygame"]

@@ -31,8 +31,8 @@ api_interval = 5.0
 
 [[repo-info.targets]]
 name = "mytools"
-repos = ["odp2jpg.sh", "vv_wav2slide_wav.py", "slide2video.py"]
+repos = ["odp2jpg.sh", "vv_wav2slide_wav.py", "slide2video.py", "repo-info.py"]
 
 [[repo-info.targets]]
 name = "IHC"
-repos = ["Pong-Game-with-Pygame"]
+repos = ["Pong-Game-with-Pygame", "kantas-theme"]

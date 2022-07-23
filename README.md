@@ -5,7 +5,13 @@
 自作のHugoテーマ [kantas-spike/kantas-theme](https://github.com/kantas-spike/kantas-theme) のデータファイルとして利用することを想定しています。
 
 ~~~shell
-poetry run python3 repo-info.py > $(hugo_site)/data/projects.json
+poetry run python3 repo-info.py > ${hugo_site}/data/projects.json
+~~~
+
+[呼び出し用シェルスクリプト](#呼び出し用シェルスクリプトのインストール)をインストールしている場合は、以下を実行します。
+
+~~~shell
+~/bin/repo-info.sh > ${hugo_site}/data/projects.json
 ~~~
 
 [カスタマイズ](#カスタマイズ)手順に従い、御自身の環境にあわせて設定変更してからお使いください。
@@ -83,6 +89,24 @@ odp2jpg.sh:
 ~~~shell
 poetry install
 ~~~
+
+## 呼び出し用シェルスクリプトのインストール
+
+`repo-info.py`を呼び出す場合、ディレクトリの移動が必要など、実行するまでの作業が煩雑なため、
+呼び出し用のシェルスクリプト `repo-info.sh` を用意しています。
+
+以下を実行してインストールしてください。デフォルトでは`~/bin`にインストールされます。
+
+~~~shell
+make install
+~~~
+
+インストール後は、以下で実行できるようになります。
+
+~~~shell
+~/bin/repo-info.sh > ${hugo_site}/data/projects.json
+~~~
+
 
 ## カスタマイズ
 

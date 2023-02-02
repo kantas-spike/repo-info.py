@@ -94,9 +94,13 @@ def save_repolist(content_dir, repo_list):
             save_repoinfo(output_dir, repoinfo)
 
 
+DEFAULT_CONTENT_DIR = "~/blog/content"
+
+
 def main():
     parser = argparse.ArgumentParser(description="GitHubリポジトリの情報を取得する")
-    parser.add_argument("--content-dir", type=str, default="~/blog/content", help="出力するHugoのコンテントディレクトリのパス")
+    parser.add_argument("--content-dir", type=str, default=DEFAULT_CONTENT_DIR,
+                        help=f"出力するHugoのコンテントディレクトリのパス: (デフォルト値: {DEFAULT_CONTENT_DIR})")
     parser.add_argument("--config", type=str, help="設定ファイルのパス")
 
     args = parser.parse_args()

@@ -34,5 +34,5 @@ name = "mytools"
 repos = ["odp2jpg.sh", "vv_wav2slide_wav.py", "slide2video.py", "repo-info.py"]
 
 [[repo-info.targets]]
-name = "IHC"
 repos = ["Pong-Game-with-Pygame", "kantas-theme"]
+name = "ihc"

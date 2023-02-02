@@ -1,3 +1,5 @@
+import argparse
+import copy
 import json
 import os
 import requests
@@ -64,18 +66,52 @@ def sleep(sec, msg):
     time.sleep(sec)
 
 
-def main():
-    config = get_config()
+def save_repoinfo(output_dir, info):
+    fm = {}
+    fm["title"] = info["name"]
+    fm["date"] = info["pushed_at"]
+    fm["draft"] = False
+    fm["repo"] = info
+    file_name = fm["title"].replace("-", "_") + ".md"
+    output_path = os.path.join(output_dir, file_name)
+    with open(output_path, "w") as f:
+        print(f"  {output_path}...")
+        json.dump(fm, f, indent=4)
 
+
+def save_repolist(content_dir, repo_list):
+    abs_content_dir = os.path.abspath(os.path.expanduser(content_dir))
+    if not os.path.isdir(abs_content_dir):
+        raise FileNotFoundError(f"指定されたディレクトリが存在しません: {abs_content_dir}")
+
+    for key, values in repo_list.items():
+        output_dir = os.path.join(abs_content_dir, key)
+        print(f"save repolist {output_dir}...")
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
+
+        for repoinfo in values:
+            save_repoinfo(output_dir, repoinfo)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="GitHubリポジトリの情報を取得する")
+    parser.add_argument("--content-dir", type=str, default="~/blog/content", help="出力するHugoのコンテントディレクトリのパス")
+    parser.add_argument("--config", type=str, help="設定ファイルのパス")
+
+    args = parser.parse_args()
+    print(args)
+
+    config = get_config(args.config)
     token = get_token(config["token_file"])
     headers = {"Accept": "application/vnd.github+json", "Authorization": f"token {token['access_token']}"}
 
     user = token["user_name"]
     interval = config["api_interval"]
-    repo_info = {}
+    repo_list = {}
     for target in config["targets"]:
         name = target["name"]
-        repo_info[name] = []
+        repo_list[name] = []
 
         for repo in target["repos"]:
             print(f"{repo}:", file=sys.stderr)
@@ -88,13 +124,9 @@ def main():
             info["project_type"] = name
             info["langs"] = langs
             info["merged"] = merged_list
-            repo_info[name].append(info)
+            repo_list[name].append(info)
 
-    for k, v in repo_info.items():
-        sorted_v = sorted(v, key=lambda i: i["pushed_at"], reverse=True)
-        repo_info[k] = sorted_v
-
-    print(json.dumps(repo_info, indent=4, ensure_ascii=False))
+    save_repolist(args.content_dir, repo_list)
 
 
 if __name__ == "__main__":

@@ -31,7 +31,9 @@ api_interval = 5.0
 
 [[repo-info.targets]]
 name = "mytools"
-repos = ["odp2jpg.sh", "vv_wav2slide_wav.py", "slide2video.py", "repo-info.py", "create-color-wheel.py", "pdf2jpg.sh", "spike.py", "add_article.py", "create-subtitles-movie.sh", "title_url_copier", "create-subtitle-image", "add_slide.py"]
+repos = ["odp2jpg.sh", "vv_wav2slide_wav.py", "slide2video.py", "repo-info.py", "create-color-wheel.py", "pdf2jpg.sh",
+         "spike.py", "add_article.py", "create-subtitles-movie.sh", "title_url_copier", "create-subtitle-image", "add_slide.py",
+         "make_book_pdf"]
 
 [[repo-info.targets]]
 name = "ihc"

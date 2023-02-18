@@ -27,8 +27,12 @@ def get_repo_info(user, repo, headers):
     res = requests.get(url, headers=headers)
     data = res.json()
     info = {}
-    for k in ["name", "full_name", "html_url", "description", "size", "pushed_at"]:
-        info[k] = data[k]
+    try:
+        for k in ["name", "full_name", "html_url", "description", "size", "pushed_at"]:
+            info[k] = data[k]
+    except KeyError:
+        print("ERROR get_repo_info: ", repo, data)
+        raise
     return info
 
 

@@ -118,8 +118,8 @@ def main():
     interval = config["api_interval"]
     repo_list = {}
     for target in config["targets"]:
-        name = target["name"]
-        repo_list[name] = []
+        section = target["section"]
+        repo_list[section] = []
 
         for repo in target["repos"]:
             print(f"{repo}:", file=sys.stderr)
@@ -129,10 +129,10 @@ def main():
             langs = get_languages(user, repo, headers)
             sleep(interval, "    get_merged_list")
             merged_list = get_merged_list(user, repo, headers)
-            info["project_type"] = name
+            info["project_type"] = section
             info["langs"] = langs
             info["merged"] = merged_list
-            repo_list[name].append(info)
+            repo_list[section].append(info)
 
     save_repolist(args.content_dir, repo_list)
 

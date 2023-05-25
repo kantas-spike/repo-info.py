@@ -98,6 +98,20 @@ def save_repolist(content_dir, repo_list):
             save_repoinfo(output_dir, repoinfo)
 
 
+def debug_info(args, config):
+    print("---")
+    print("# debug_info")
+    print(f"args: {args}")
+    print("config:")
+    print(f"  content_dir: {config['content_dir']}")
+    print(f"  token_file: {config['token_file']}")
+    print("  targets:")
+    for target in config["targets"]:
+        print(f"    - section: {target['section']}")
+        print("      repos:")
+        for repo in target["repos"]:
+            print(f"        - {repo}")
+    print("---\n")
 
 
 def main():
@@ -105,19 +119,29 @@ def main():
     parser.add_argument("--content-dir", type=str,
                         help="出力するHugoのコンテントディレクトリのパス。未指定時は設定ファイルに定義された`content_dir`の値が使用される。")
     parser.add_argument("--config", type=str, help="設定ファイルのパス")
+    parser.add_argument("--dry-run", action='store_true', help="実際に実行せず、引数と設定ファイルの情報のみを表示する。")
 
     args = parser.parse_args()
-    print(args)
 
     config = get_config(args.config)
     token = get_token(config["token_file"])
+    user = token["user_name"]
+
     if args.content_dir:
         content_dir = args.content_dir
     else:
         content_dir = config["content_dir"]
+
+    print(f"API_URL: https://api.github.com/repos/{user}")
+    print(f"OUTPUT_DIR: {content_dir}")
+    print()
+
+    if args.dry_run:
+        debug_info(args, config)
+        return
+
     headers = {"Accept": "application/vnd.github+json", "Authorization": f"token {token['access_token']}"}
 
-    user = token["user_name"]
     interval = config["api_interval"]
     repo_list = {}
     for target in config["targets"]:

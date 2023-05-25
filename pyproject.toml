@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "28_repo-info.py"
+name = "repo-info.py"
 version = "0.1.0"
-description = "GitHub Rest API してリポジトリの情をする"
+description = "GitHub REST APIを使って、設定ファイルに定義したリポジトリの情報を取得し、指定された出力ディレクトリにMakdownファイルとして出力するツールです"
 authors = ["kanta <101532773+kantas-spike@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]

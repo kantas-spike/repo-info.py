@@ -28,6 +28,7 @@ line-length = 119
 [repo-info]
 token_file = "access_token.toml"
 api_interval = 5.0
+content_dir = "~/blog/content"
 
 [[repo-info.targets]]
 section = "mytools"

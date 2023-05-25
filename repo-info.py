@@ -98,13 +98,12 @@ def save_repolist(content_dir, repo_list):
             save_repoinfo(output_dir, repoinfo)
 
 
-DEFAULT_CONTENT_DIR = "~/blog/content"
 
 
 def main():
     parser = argparse.ArgumentParser(description="GitHubリポジトリの情報を取得する")
-    parser.add_argument("--content-dir", type=str, default=DEFAULT_CONTENT_DIR,
-                        help=f"出力するHugoのコンテントディレクトリのパス: (デフォルト値: {DEFAULT_CONTENT_DIR})")
+    parser.add_argument("--content-dir", type=str,
+                        help="出力するHugoのコンテントディレクトリのパス。未指定時は設定ファイルに定義された`content_dir`の値が使用される。")
     parser.add_argument("--config", type=str, help="設定ファイルのパス")
 
     args = parser.parse_args()
@@ -112,6 +111,10 @@ def main():
 
     config = get_config(args.config)
     token = get_token(config["token_file"])
+    if args.content_dir:
+        content_dir = args.content_dir
+    else:
+        content_dir = config["content_dir"]
     headers = {"Accept": "application/vnd.github+json", "Authorization": f"token {token['access_token']}"}
 
     user = token["user_name"]
@@ -134,7 +137,7 @@ def main():
             info["merged"] = merged_list
             repo_list[section].append(info)
 
-    save_repolist(args.content_dir, repo_list)
+    save_repolist(content_dir, repo_list)
 
 
 if __name__ == "__main__":

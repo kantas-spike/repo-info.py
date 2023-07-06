@@ -38,4 +38,4 @@ repos = ["odp2jpg.sh", "vv_wav2slide_wav.py", "slide2video.py", "repo-info.py", 
 
 [[repo-info.targets]]
 section = "ihc"
-repos = ["Pong-Game-with-Pygame", "kantas-theme", "Color-Wheel", "srt_loader"]
+repos = ["Pong-Game-with-Pygame", "kantas-theme", "Color-Wheel", "srt_loader", "learn_react"]
